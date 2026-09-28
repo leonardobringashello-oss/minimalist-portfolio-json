@@ -1,0 +1,258 @@
+---
+import { basics } from "@cv";
+import Close from "@/icons/Close.astro";
+import Search from "@/icons/Search.astro";
+
+const profileCommands = basics.profiles.map(({ network, url }) => ({
+  network,
+  url,
+}));
+---
+
+<footer class="cmd-hint">
+  <p>
+    Presioná <kbd>Ctrl</kbd> + <kbd>J</kbd> para abrir el menú de comandos
+  </p>
+</footer>
+
+<div class="cmd-overlay" hidden>
+  <div class="cmd-menu" role="dialog" aria-modal="true" aria-label="Menú de comandos">
+    <div class="cmd-search">
+      <Search />
+      <input type="search" placeholder="Escribí un comando o buscá…" autocomplete="off" />
+      <button type="button" class="cmd-close" aria-label="Cerrar menú">
+        <Close />
+      </button>
+    </div>
+    <ul></ul>
+  </div>
+</div>
+
+<script define:vars={{ profileCommands }}>
+  const overlay = document.querySelector(".cmd-overlay");
+  const input = overlay.querySelector("input");
+  const list = overlay.querySelector("ul");
+  const closeBtn = overlay.querySelector(".cmd-close");
+
+  const printCommand = {
+    label: "Imprimir CV",
+    keywords: "print pdf papel",
+  };
+
+  const groups = [
+    {
+      title: "Acciones",
+      items: [{ ...printCommand, run: () => window.print() }],
+    },
+    {
+      title: "Perfiles",
+      items: profileCommands.map((p) => ({
+        label: `Abrir ${p.network}`,
+        keywords: p.network,
+        run: () => window.open(p.url, "_blank", "noopener"),
+      })),
+    },
+  ];
+
+  let flat = [];
+  let active = 0;
+
+  function filterGroups(q) {
+    const query = q.trim().toLowerCase();
+    flat = [];
+    return groups
+      .map((g) => ({
+        title: g.title,
+        items: g.items.filter((c) =>
+          `${c.label} ${c.keywords}`.toLowerCase().includes(query),
+        ),
+      }))
+      .filter((g) => {
+        if (!g.items.length) return false;
+        g.items.forEach((item) => flat.push(item));
+        return true;
+      });
+  }
+
+  function render() {
+    list.innerHTML = "";
+    let index = 0;
+    filterGroups(input.value).forEach((g) => {
+      const header = document.createElement("li");
+      header.className = "cmd-group";
+      header.textContent = g.title;
+      list.appendChild(header);
+      g.items.forEach((cmd) => {
+        const li = document.createElement("li");
+        li.className = "cmd-item";
+        li.textContent = cmd.label;
+        if (index === active) li.setAttribute("data-active", "");
+        const runIndex = index;
+        li.addEventListener("click", () => {
+          flat[runIndex].run();
+          close();
+        });
+        list.appendChild(li);
+        index += 1;
+      });
+    });
+  }
+
+  function open() {
+    overlay.hidden = false;
+    input.value = "";
+    active = 0;
+    render();
+    input.focus();
+  }
+
+  function close() {
+    overlay.hidden = true;
+  }
+
+  function isOpen() {
+    return !overlay.hidden;
+  }
+
+  input.addEventListener("input", () => {
+    active = 0;
+    render();
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "j") {
+      e.preventDefault();
+      isOpen() ? close() : open();
+      return;
+    }
+    if (!isOpen()) return;
+    if (e.key === "Escape") close();
+    if (!flat.length) return;
+    if (e.key === "ArrowDown") {
+      e.preventDefault();
+      active = (active + 1) % flat.length;
+      render();
+    }
+    if (e.key === "ArrowUp") {
+      e.preventDefault();
+      active = (active - 1 + flat.length) % flat.length;
+      render();
+    }
+    if (e.key === "Enter" && flat[active]) {
+      flat[active].run();
+      close();
+    }
+  });
+
+  overlay.addEventListener("click", (e) => {
+    if (e.target === overlay) close();
+  });
+
+  closeBtn.addEventListener("click", close);
+</script>
+
+<style>
+  .cmd-hint {
+    text-align: center;
+    padding: 2rem 0;
+    color: #888;
+    font-size: 0.8rem;
+  }
+  kbd {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 0 4px;
+    font-size: 0.75rem;
+    background: #f7f7f7;
+  }
+  .cmd-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    display: flex;
+    justify-content: center;
+    padding-top: 20vh;
+    z-index: 50;
+  }
+  .cmd-overlay[hidden] {
+    display: none;
+  }
+  .cmd-menu {
+    background: #fff;
+    border-radius: 8px;
+    width: min(480px, 90vw);
+    height: fit-content;
+    overflow: hidden;
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.2);
+  }
+  .cmd-menu input {
+    flex: 1;
+    border: none;
+    font-size: 0.9rem;
+    font-family: var(--font-primary);
+    outline: none;
+    background: transparent;
+  }
+  .cmd-search {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 16px;
+    border-bottom: 1px solid #eee;
+    color: #888;
+  }
+  .cmd-close {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    background: transparent;
+    color: #888;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 6px;
+  }
+  .cmd-close:hover {
+    background: #eee;
+    color: #333;
+  }
+  .cmd-menu ul {
+    max-height: 300px;
+    overflow: auto;
+    padding: 8px;
+  }
+  .cmd-group {
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05rem;
+    color: #999;
+    padding: 8px 12px 4px;
+    cursor: default;
+	text-decoration: none;
+  }
+  .cmd-group:hover {
+	text-decoration: underline;
+	color: #999;
+  }
+  .cmd-item {
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: background-color 150ms ease;
+  }
+  .cmd-item:hover {
+    background: #f5f5f5;
+  }
+  .cmd-item[data-active] {
+    background: #eee;
+  }
+  @media print {
+    .cmd-hint,
+    .cmd-overlay {
+      display: none;
+    }
+  }
+</style>
