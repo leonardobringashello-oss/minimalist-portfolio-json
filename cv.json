@@ -2,7 +2,7 @@
   "basics": {
     "name": "Leonardo Bringas",
     "label": "Programador",
-    "image": "/leo-gris.webp",
+    "image": "./leo-gris.webp",
     "email": "leonardobringashello@gmail.com",
     "phone": "+54 9 11 2541 7299",
     "url": "https://leonardobringas.dev",
