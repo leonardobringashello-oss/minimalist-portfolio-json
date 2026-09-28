@@ -173,6 +173,14 @@ La skill `emil-design-eng` se aplicó así:
 - Presioná `Ctrl`/`Cmd + J` → "Imprimir CV", o `Ctrl/Cmd + P` directamente.
 - Los estilos `@media print` ocultan el menú de comandos y dejan pills y tarjetas planas, sin sombras ni animaciones.
 
+## 🌐 Deploy a GitHub Pages
+
+El sitio se publica automáticamente en cada push a `main` con el workflow `.github/workflows/deploy.yml` (build de Astro + `actions/deploy-pages`).
+
+- URL: <https://leonardobringashello-oss.github.io/minimalist-portfolio-json/>
+- En `astro.config.mjs` están `site` y `base: "/minimalist-portfolio-json"` (requerido por ser project page, no user page).
+- Los assets (`cv.json → image`, favicon) usan rutas relativas (`./...`) para que funcionen tanto en local como bajo el subpath de Pages.
+
 ## 📌 Origen y créditos
 
 Contenido preservado del `README` original de este proyecto:
