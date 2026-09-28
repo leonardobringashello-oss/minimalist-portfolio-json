@@ -1,0 +1,94 @@
+---
+import Section from "@/components/Section.astro";
+import { work } from "@cv";
+---
+
+<Section title="Experiencia" id="experiencia">
+  <ul class="work-list">
+    {
+      work.map(
+        ({ name, startDate, endDate, position, summary, highlights = [] }) => {
+          const startYear = new Date(String(startDate)).getFullYear();
+          const endYear = endDate
+            ? new Date(String(endDate)).getFullYear()
+            : "Actual";
+          const years = `${startYear} - ${endYear}`;
+
+          return (
+            <li>
+              <article>
+                <header>
+                  <div>
+                    <div class="title-row">
+                      <h3>{name}</h3>
+                      <ul class="badges">
+                        {highlights.map((highlight) => (
+                          <li>{highlight}</li>
+                        ))}
+                      </ul>
+                    </div>
+                    <h4>{position}</h4>
+                  </div>
+                  <time>{years}</time>
+                </header>
+                <footer>
+                  <p>{summary}</p>
+                </footer>
+              </article>
+            </li>
+          );
+        },
+      )
+    }
+  </ul>
+</Section>
+
+<style>
+  .work-list {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+  article h3 {
+    color: #111;
+    font-weight: 600;
+    font-family: var(--font-primary);
+  }
+  article h4 {
+    color: #111;
+    font-weight: 300;
+    font-family: var(--font-secondary);
+  }
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 4px;
+  }
+  .title-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .badges {
+    display: inline-flex;
+    flex-direction: row;
+    gap: 5px;
+    flex-wrap: wrap;
+  }
+  .badges li {
+    border-radius: 50px;
+    background: #eee;
+    color: black;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    font-weight: 500;
+    padding: 0.15rem 0.5rem;
+  }
+  time {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    color: #888;
+  }
+</style>

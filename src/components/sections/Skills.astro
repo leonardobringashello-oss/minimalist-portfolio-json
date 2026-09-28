@@ -1,0 +1,152 @@
+---
+import Section from "@/components/Section.astro";
+import { skills } from "@cv";
+
+import AstroIcon from "@/icons/astro.astro";
+import Css from "@/icons/css.astro";
+import Git from "@/icons/git.astro";
+import Github from "@/icons/GitHub.astro";
+import Html from "@/icons/html.astro";
+import Javascript from "@/icons/javascript.astro";
+import Node from "@/icons/node.astro";
+import Plug from "@/icons/plug.astro";
+import Python from "@/icons/python.astro";
+import Sparkles from "@/icons/sparkles.astro";
+import Sql from "@/icons/sql.astro";
+import Tailwind from "@/icons/tailwind.astro";
+import Type from "@/icons/type.astro";
+
+const SKILL_ICONS: Record<string, any> = {
+  HTML: Html,
+  CSS: Css,
+  JavaScript: Javascript,
+  Astro: AstroIcon,
+  TypeScript: Type,
+  "Tailwind CSS": Tailwind,
+  Git: Git,
+  GitHub: Github,
+  Python: Python,
+  Node: Node,
+  SQL: Sql,
+  WebSockets: Plug,
+  "AI/LLMs": Sparkles,
+};
+---
+
+<Section title="Habilidades" id="habilidades">
+  <ul class="skills" aria-label="Lista de habilidades de lenguajes de programación">
+    {
+      skills.map(({ name }, i) => {
+        const Icon = SKILL_ICONS[name];
+        return (
+          <li style={`--d: ${i * 35}ms`}>
+            {Icon && (
+              <span class="icon" aria-hidden="true">
+                <Icon />
+              </span>
+            )}
+            <span>{name}</span>
+          </li>
+        );
+      })
+    }
+  </ul>
+</Section>
+
+<style>
+  .skills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .skills li {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    border-radius: 999px;
+    border: 1px solid #eaeaea;
+    background: #f6f6f6;
+    color: #111;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    line-height: 1;
+    padding: 0.42rem 0.7rem;
+    transition:
+      transform 180ms var(--ease-out),
+      background-color 180ms ease,
+      border-color 180ms ease,
+      color 180ms ease;
+    animation: skill-in 420ms var(--ease-out) both;
+    animation-delay: var(--d, 0ms);
+    will-change: transform, opacity;
+  }
+  .icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    line-height: 0;
+    align-self: center;
+    color: #555;
+    transition: color 180ms ease;
+  }
+  .icon :global(svg) {
+    width: 15px;
+    height: 15px;
+    display: block;
+    flex-shrink: 0;
+  }
+  .skills li > span:last-child {
+    display: inline-flex;
+    align-items: center;
+    line-height: 1;
+    transform: translateY(0.5px);
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .skills li:hover {
+      transform: translateY(-1px);
+      background: #efefef;
+      border-color: #e0e0e0;
+    }
+    .skills li:hover .icon {
+      color: #111;
+    }
+  }
+  .skills li:active {
+    transform: scale(0.97);
+  }
+  .skills li:focus-visible {
+    outline: 2px solid #111;
+    outline-offset: 2px;
+  }
+  @keyframes skill-in {
+    from {
+      opacity: 0;
+      transform: translateY(6px) scale(0.98);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .skills li {
+      animation: none;
+      transition-duration: 0.01ms;
+    }
+  }
+  @media print {
+    .skills {
+      gap: 6px;
+    }
+    .skills li {
+      animation: none;
+      background: #eee;
+      border-color: #eee;
+      break-inside: avoid;
+    }
+  }
+</style>
