@@ -1,0 +1,23 @@
+---
+const { title, id } = Astro.props;
+---
+
+<section id={id}>
+  {title && <h2>{title}</h2>}
+  <slot />
+</section>
+
+<style>
+  section {
+    max-width: 700px;
+    margin: 0 auto 20px;
+    scroll-margin-top: 1rem;
+  }
+  h2 {
+    margin-bottom: 8px;
+    font-weight: 700;
+    line-height: 1.4;
+    font-size: 1.25rem;
+    text-wrap: balance;
+  }
+</style>
