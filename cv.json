@@ -1,0 +1,156 @@
+{
+  "basics": {
+    "name": "Leonardo Bringas",
+    "label": "Programador",
+    "image": "/leo-gris.webp",
+    "email": "leonardobringashello@gmail.com",
+    "phone": "+54 9 11 2541 7299",
+    "url": "https://leonardobringas.dev",
+    "summary": "Estudiante de secundario y programador en formación de Florencio Varela, Buenos Aires. Trabajo con HTML, CSS, JavaScript, Astro y Python, usando Git, GitHub y Linux en el día a día. Actualmente estoy construyendo mi portfolio web mientras termino el secundario.",
+    "location": {
+      "address": "",
+      "postalCode": "1888",
+      "city": "Florencio Varela",
+      "countryCode": "AR",
+      "region": "Buenos Aires"
+    },
+    "profiles": [
+      {
+        "network": "GitHub",
+        "username": "leobringasatlife",
+        "url": "https://github.com/leobringasatlife"
+      },
+      {
+        "network": "X",
+        "username": "leonardobringas",
+        "url": "https://x.com/leonardobringas"
+      },
+      {
+        "network": "LinkedIn",
+        "username": "leonardobringas",
+        "url": "https://linkedin.com/leonardobringas"
+      }
+    ]
+  },
+  "work": [
+    {
+      "name": "Desarrollo Web — Freelance",
+      "position": "Desarrollador Full Stack",
+      "url": "https://ejemplo.com",
+      "startDate": "2025-03-01",
+      "endDate": null,
+      "summary": "Breve descripción"
+    }
+  ],
+  "volunteer": [
+    {
+      "organization": "Organization",
+      "position": "Volunteer",
+      "url": "https://organization.com/",
+      "startDate": "2012-01-01",
+      "endDate": "2013-01-01",
+      "summary": "Description…",
+      "highlights": ["Awarded 'Volunteer of the Month'"]
+    }
+  ],
+  "education": [
+    {
+      "institution": "Escuela Secundaria — Florencio Varela",
+      "url": "",
+      "area": "Bachiller en curso (4 materias pendientes)",
+      "studyType": "Secundario",
+      "startDate": "2025-01-12",
+      "endDate": null,
+      "score": "",
+      "courses": []
+    }
+  ],
+  "awards": [
+    {
+      "title": "Award",
+      "date": "2014-11-01",
+      "awarder": "Company",
+      "summary": "There is no spoon."
+    }
+  ],
+  "certificates": [
+    {
+      "name": "Certificate",
+      "date": "2021-11-07",
+      "issuer": "Company",
+      "url": "https://certificate.com"
+    }
+  ],
+  "publications": [
+    {
+      "name": "Publication",
+      "publisher": "Company",
+      "releaseDate": "2014-10-01",
+      "url": "https://publication.com",
+      "summary": "Description…"
+    }
+  ],
+  "skills": [
+    { "name": "HTML" },
+    { "name": "CSS" },
+    { "name": "JavaScript" },
+    { "name": "Astro" },
+    { "name": "TypeScript" },
+    { "name": "Tailwind CSS" },
+    { "name": "Git" },
+    { "name": "GitHub" },
+    { "name": "Python" },
+    { "name": "Node" },
+    { "name": "SQL" },
+    { "name": "WebSockets" },
+    { "name": "AI/LLMs" }
+  ],
+
+  "languages": [
+    {
+      "language": "English",
+      "fluency": "Native speaker"
+    }
+  ],
+  "interests": [
+    {
+      "name": "Wildlife",
+      "keywords": ["Ferrets", "Unicorns"]
+    }
+  ],
+  "references": [
+    {
+      "name": "Jane Doe",
+      "reference": "Reference…"
+    }
+  ],
+  "projects": [
+    {
+      "name": "Proyecto 1",
+	  "isActive": true,
+      "description": "Una breve descripción sobre el proyecto.",
+      "startDate": "2019-01-01",
+      "endDate": "2021-01-01",
+      "highlights": ["En desarrollo"],
+      "url": "https://project.com/"
+    },
+    {
+      "name": "Proyecto 2",
+	  "isActive": false,
+      "description": "Una breve descripción sobre el proyecto.",
+      "startDate": "2019-01-01",
+      "endDate": "2021-01-01",
+      "highlights": ["En desarrollo"],
+      "url": "https://project.com/"
+    },
+    {
+      "name": "Proyecto 3",
+	  "isActive": true,
+      "description": "Una breve descripción sobre el proyecto.",
+      "startDate": "2019-01-01",
+      "endDate": "2021-01-01",
+      "highlights": ["En desarrollo"],
+      "url": "https://project.com/"
+    }
+  ]
+}
